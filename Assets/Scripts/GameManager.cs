@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    
+    #region Exposed
 
     [SerializeField]
     Canvas gameScreen;
@@ -20,6 +21,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Image HealthBarGreen;
 
+    #endregion
+
+    #region Private, Protected & Accessor
+
     public int Score;
     public int BestScore;
     private Text ScoreTxt;
@@ -30,6 +35,9 @@ public class GameManager : MonoBehaviour
     public float Health { get { return _health; } private set { }} 
     public float LostHealth {  get { return _health; }  set { _health = value; } }
 
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Awake()
     {
@@ -42,6 +50,11 @@ public class GameManager : MonoBehaviour
         _health = 100;
         gameScreen.enabled = true;
         gameOverScreen.enabled = false;
+        isInGame = true;
+        onGameOverScreen = false;
+        BroadcastMessage("OnStartGame");
+        gameScreen.enabled = true;
+        Score = 0;
     }
 
     
@@ -71,15 +84,14 @@ public class GameManager : MonoBehaviour
         ScoreGameOver.text = "SCORE : " + Score + "\n" + "BEST SCORE : " + BestScore + "\n" + "\n" + "RETRY PRESS SPACE";
     }
 
+    #endregion
+
+    #region Methods
+
     void StartGame()
     {
-        isInGame = true;
-        onGameOverScreen = false;
-        BroadcastMessage("OnStartGame");
-        gameScreen.enabled = true;
-        gameOverScreen.enabled = false;
-        _health = 100;
-        Score = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    
     }
 
     public void GameOver()
@@ -100,4 +112,12 @@ public class GameManager : MonoBehaviour
         gameOverScreen.enabled = true;
         onGameOverScreen = true;
     }
+
+    public void WinLevel()
+    {
+        isInGame = false;
+        Debug.Log("FINISH LINE !!!");
+    }
+
+    #endregion
 }

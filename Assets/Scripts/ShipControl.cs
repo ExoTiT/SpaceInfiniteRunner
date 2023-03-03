@@ -15,7 +15,7 @@ public class ShipControl : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    private float maxSpeed;
+    private float _accelerationRatio;
     [SerializeField]
     float jumpForce;
     [SerializeField]
@@ -45,7 +45,11 @@ public class ShipControl : MonoBehaviour
     [SerializeField]
     [Range(0.05f,0.2f)]
     private float _distanceTolerance;
-   
+
+    [Header("WinPosition")]
+    [SerializeField]
+    private Transform _winPosition;
+
     #endregion
 
     #region Private and Protected
@@ -59,8 +63,8 @@ public class ShipControl : MonoBehaviour
 
 
     //Int & float
-    private float currentSpeed = 0;
     private float _horizontal;
+    
 
     //bool
     private bool bAccelerate;
@@ -124,7 +128,7 @@ public class ShipControl : MonoBehaviour
             }
 
             //Déplacement horizontaux
-            _horizontal = Input.GetAxisRaw("Horizontal") * translationSpeed * Time.deltaTime;
+            _horizontal = Input.GetAxisRaw("Horizontal") * translationSpeed;
             
 
             //Dash latérale
@@ -157,14 +161,26 @@ public class ShipControl : MonoBehaviour
                     ChangeFlame(FlameG, bAccelerate);
                     ChangeFlame(FlameD, bAccelerate);
                 }
-                transform.position += transform.forward * currentSpeed;
+                
             }
+
+            //Change acceleration ratio
+            if (Input.GetButton("Accel"))
+            {
+                _accelerationRatio = 1.5f;
+            }
+            else
+            {
+                _accelerationRatio = 1f;
+            }
+
+           
         }
 
         if (!inLife)
         {
             Vector3 cameraPos = Camera.main.transform.position - Ship.transform.position;
-            Debug.Log("Position de la camera : " + Vector3.Distance(cameraPos, _cineTransposer.m_FollowOffset));
+            //Debug.Log("Position de la camera : " + Vector3.Distance(cameraPos, _cineTransposer.m_FollowOffset));
             if (Vector3.Distance(cameraPos, _cineTransposer.m_FollowOffset) < _distanceTolerance)
             {
                 if (Input.GetButtonDown("Fire1"))
@@ -189,7 +205,7 @@ public class ShipControl : MonoBehaviour
             _rigidbody.velocity += new Vector3(_horizontal * Time.fixedDeltaTime, 0, 0);
 
             //Accelération
-            _rigidbody.velocity += new Vector3(0, 0, speed * Time.fixedDeltaTime);
+            _rigidbody.velocity += new Vector3(0, 0, (speed * _accelerationRatio) * Time.fixedDeltaTime);
 
             //Jump
             if (isJumping)
@@ -220,6 +236,10 @@ public class ShipControl : MonoBehaviour
                 _endTimeToOutline = Time.timeSinceLevelLoad + _outlineTimeDelay;
             }
         }
+        else if (other.tag == "LeaveLine")
+        {
+            Finish();
+        }
     }
 
     #endregion
@@ -231,8 +251,8 @@ public class ShipControl : MonoBehaviour
         if (bAccelerate && inLife)
         {
             var main = system.main;
-            main.startSpeed = 2;
-            main.startSize = 1.5f;
+            main.startSpeed = 2 * _accelerationRatio;
+            main.startSize = 1.5f * _accelerationRatio;
         }
         else
         {
@@ -262,8 +282,8 @@ public class ShipControl : MonoBehaviour
     public void Death()
     {
         inLife = false;
-        currentSpeed = 0;
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        _rigidbody.velocity = Vector3.zero;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         Invoke("DamagedShip", 0.2f);
         Explode.Play();
     }
@@ -273,6 +293,17 @@ public class ShipControl : MonoBehaviour
         inLife = false;
         enabled = false;
     }
+
+    void Finish()
+    {
+        inLife = false;
+        transform.position = _winPosition.position;
+        SendMessageUpwards("WinLevel");
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+
+    
 
     #endregion
 
