@@ -43,13 +43,16 @@ public class ShipControl : MonoBehaviour
     [SerializeField]
     private CinemachineVirtualCamera _vCam;
     [SerializeField]
-    [Range(0.05f,0.2f)]
+    [Range(0.05f, 0.2f)]
     private float _distanceTolerance;
 
     [Header("WinPosition")]
     [SerializeField]
     private Transform _winPosition;
 
+    [Header("Item")]
+    [SerializeField]
+    private GameObject _catchModulaEnergyPrefab;
     #endregion
 
     #region Private and Protected
@@ -64,13 +67,16 @@ public class ShipControl : MonoBehaviour
 
     //Int & float
     private float _horizontal;
-    
+    private int _modulaEnergieCount = 0;
+    public int ModulaEnergieCount { get { return _modulaEnergieCount; } private set { } }
+
 
     //bool
     private bool bAccelerate;
     private bool inLife;
     private bool isGrounded;
     private bool isJumping;
+    private bool _canDash = false;
 
     //Animation death
     private int deathRotationX;
@@ -103,10 +109,21 @@ public class ShipControl : MonoBehaviour
     void Update()
     {
       
+    
         
         if (inLife)
         {
-            
+
+            //Count Dash Modula Energie and give true at _canDash
+            if (_modulaEnergieCount > 0)
+            {
+                _canDash = true;
+            }
+            else
+            {
+                _canDash = false;
+            }
+
             //Create a visual groundChecker
             Debug.DrawLine(transform.position + new Vector3(0, 0.3f, 0), transform.position + new Vector3(0, -0.01f, 0), Color.blue);
 
@@ -132,9 +149,9 @@ public class ShipControl : MonoBehaviour
             
 
             //Dash latérale
-            if (Input.GetButtonDown("LeftDash"))
+            if (Input.GetButtonDown("LeftDash") && _canDash)
             {
-                Debug.Log("LEFT!!");
+                _modulaEnergieCount--;
                 if (transform.position.x > leftWall.transform.position.x)
                 {
                     transform.position = new Vector3(transform.position.x - dash, transform.position.y, transform.position.z);
@@ -142,9 +159,9 @@ public class ShipControl : MonoBehaviour
             }
             if (transform.position.x < leftWall.transform.position.x) transform.position = new Vector3(leftWall.transform.position.x + 1.5f, transform.position.y, transform.position.z);
 
-            if (Input.GetButtonDown("RightDash"))
+            if (Input.GetButtonDown("RightDash") && _canDash)
             {
-                Debug.Log("RIGHT!!");
+                _modulaEnergieCount--;
                 if (transform.position.x < rightWall.transform.position.x)
                 {
                     transform.position = new Vector3(transform.position.x + dash, transform.position.y, transform.position.z);
@@ -239,6 +256,12 @@ public class ShipControl : MonoBehaviour
         else if (other.tag == "LeaveLine")
         {
             Finish();
+        }
+        else if (other.tag == "ModulaEnergie")
+        {
+            _modulaEnergieCount++;
+            Instantiate(_catchModulaEnergyPrefab, other.transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
         }
     }
 

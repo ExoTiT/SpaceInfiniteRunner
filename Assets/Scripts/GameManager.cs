@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     private Image HealthBarRed;
     [SerializeField]
     private Image HealthBarGreen;
+    [SerializeField]
+    private ShipControl _shipControl;
+    [SerializeField]
+    private GameObject[] _modulaEnergieBars;
 
     #endregion
 
@@ -35,6 +39,7 @@ public class GameManager : MonoBehaviour
     public float Health { get { return _health; } private set { }} 
     public float LostHealth {  get { return _health; }  set { _health = value; } }
 
+
     #endregion
 
     #region Unity Lifecycle
@@ -43,6 +48,10 @@ public class GameManager : MonoBehaviour
     {
         ScoreTxt = gameScreen.GetComponent<Text>();
         ScoreGameOver =gameOverScreen.GetComponent<Text>();
+        for (int i = 0; i < _modulaEnergieBars.Length; i++)
+        {
+            _modulaEnergieBars[i].SetActive(false);
+        }
     }
 
     void Start()
@@ -82,6 +91,21 @@ public class GameManager : MonoBehaviour
 
         ScoreTxt.text = "Score : " + Score;
         ScoreGameOver.text = "SCORE : " + Score + "\n" + "BEST SCORE : " + BestScore + "\n" + "\n" + "RETRY PRESS SPACE";
+
+        //Display the Modula Energy bars 
+        int numbBarsToDisplay = _shipControl.ModulaEnergieCount;
+        for (int i = 0; i < _modulaEnergieBars.Length; i++)
+        {
+            if (i < numbBarsToDisplay)
+            {
+                _modulaEnergieBars[i].SetActive(true);
+            }
+            else
+            {
+                _modulaEnergieBars[i].SetActive(false);
+            }
+        }
+
     }
 
     #endregion

@@ -7,10 +7,6 @@ public class CylinderControler : MonoBehaviour
     #region Exposed
     [SerializeField]
     private GameObject _explodePrefab;
-
-
-
-
     #endregion
 
 
