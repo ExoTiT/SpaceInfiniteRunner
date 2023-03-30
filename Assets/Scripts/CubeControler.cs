@@ -63,9 +63,6 @@ public class CubeControler : MonoBehaviour
 
     #endregion
 
-    #region Methods
-
-    #endregion
 
     #region Private & Protected
 

@@ -1,16 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HoleTrigger : MonoBehaviour
 {
-    #region Exposed
-
-
-
-    #endregion
-
-
+    
     #region Unity Lyfecycle
 
     private void Awake()
@@ -29,9 +21,6 @@ public class HoleTrigger : MonoBehaviour
 
     #endregion
 
-    #region Methods
-
-    #endregion
 
     #region Private & Protected
 

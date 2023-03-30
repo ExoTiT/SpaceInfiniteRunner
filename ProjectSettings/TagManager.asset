@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - LeaveLine
   - ModulaEnergie
+  - ShieldEnergy
   layers:
   - Default
   - TransparentFX

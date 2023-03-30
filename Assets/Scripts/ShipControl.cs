@@ -1,9 +1,5 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class ShipControl : MonoBehaviour
 {
@@ -260,6 +256,12 @@ public class ShipControl : MonoBehaviour
         else if (other.tag == "ModulaEnergie")
         {
             _modulaEnergieCount++;
+            Instantiate(_catchModulaEnergyPrefab, other.transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
+        }
+        else if (other.tag == "ShieldEnergy")
+        {
+            gameManager.WinHealth += 10;
             Instantiate(_catchModulaEnergyPrefab, other.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
         }

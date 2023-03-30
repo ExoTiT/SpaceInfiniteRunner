@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CylinderControler : MonoBehaviour
@@ -20,14 +18,6 @@ public class CylinderControler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    #endregion
-
-    #region Methods
-
-    #endregion
-
-    #region Private & Protected
 
     #endregion
 }

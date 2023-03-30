@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     private float _health;
     public float Health { get { return _health; } private set { }} 
     public float LostHealth {  get { return _health; }  set { _health = value; } }
+    public float WinHealth { get { return _health; } set { _health = value; } }
 
 
     #endregion
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("START!!");
         _health = 100;
         gameScreen.enabled = true;
         gameOverScreen.enabled = false;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
+        Debug.Log("My Health = " + _health);
         if (Input.GetButtonDown("Jump") && !isInGame && onGameOverScreen)
         {
             StartGame();
