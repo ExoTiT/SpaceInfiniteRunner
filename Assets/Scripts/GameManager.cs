@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public float Health { get { return _health; } private set { }} 
     public float LostHealth {  get { return _health; }  set { _health = value; } }
     public float WinHealth { get { return _health; } set { _health = value; } }
-
+    private GameControl _gameControl;
 
     #endregion
 
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         {
             _modulaEnergieBars[i].SetActive(false);
         }
+        _gameControl = GameObject.Find("GameControl").GetComponent<GameControl>();
     }
 
     void Start()
@@ -144,6 +145,12 @@ public class GameManager : MonoBehaviour
     {
         isInGame = false;
         Debug.Log("FINISH LINE !!!");
+        Invoke("ChangeScene", 2);
+    }
+
+    private void ChangeScene()
+    {
+        _gameControl.ChangeScene();
     }
 
     #endregion

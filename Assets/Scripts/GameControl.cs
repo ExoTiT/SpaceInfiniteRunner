@@ -35,7 +35,7 @@ public class GameControl : MonoBehaviour
 
     IEnumerator StartMenu()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
          StartMenuMethod();
     }
 
@@ -43,6 +43,18 @@ public class GameControl : MonoBehaviour
     {
         Debug.Log("Start Menu!!");
         SceneManager.LoadScene(1);
+    }
+
+    public void WinState()
+    {
+
+
+
+    }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     #endregion
