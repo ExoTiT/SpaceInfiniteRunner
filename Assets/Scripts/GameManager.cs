@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
         ScoreGameOver =gameOverScreen.GetComponent<Text>();
         for (int i = 0; i < _modulaEnergieBars.Length; i++)
         {
-            _modulaEnergieBars[i].SetActive(false);
+            //_modulaEnergieBars[i].SetActive(false);
+            _modulaEnergieBars[i].GetComponent<Image>().enabled = false;
         }
         _gameControl = GameObject.Find("GameControl").GetComponent<GameControl>();
     }
@@ -102,11 +103,13 @@ public class GameManager : MonoBehaviour
         {
             if (i < numbBarsToDisplay)
             {
-                _modulaEnergieBars[i].SetActive(true);
+                //_modulaEnergieBars[i].SetActive(true);
+                _modulaEnergieBars[i].GetComponent<Image>().enabled = true;
             }
             else
             {
-                _modulaEnergieBars[i].SetActive(false);
+                //_modulaEnergieBars[i].SetActive(false);
+                _modulaEnergieBars[i].GetComponent<Image>().enabled = false;
             }
         }
 

@@ -4876,18 +4876,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcfcce882cefe2240bd8873c1991d57a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationSpeed: 2500
+  translationSpeed: 100
   speed: 30
-  maxSpeed: 20
+  _accelerationRatio: 1
   jumpForce: 1200
   dash: 5
   leftWall: {fileID: 0}
   rightWall: {fileID: 0}
   Ship: {fileID: 6105896349258404900}
-  gameControler: {fileID: 0}
+  gameManager: {fileID: 0}
   _outlineTimeDelay: 1
   _vCam: {fileID: 0}
   _distanceTolerance: 0.1
+  _winPosition: {fileID: 0}
+  _catchModulaEnergyPrefab: {fileID: 0}
 --- !u!65 &6105896349258404905
 BoxCollider:
   m_ObjectHideFlags: 0

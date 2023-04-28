@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textColor: {fileID: 973093501}
-  _scaleValue: 0.0005
+  _scaleValue: 1
 --- !u!114 &973093501 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8132115283312678232, guid: 99824bd77a54230458cd78aa6e74266e, type: 3}

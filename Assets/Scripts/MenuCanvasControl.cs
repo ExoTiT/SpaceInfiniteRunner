@@ -53,7 +53,7 @@ public class MenuCanvasControl : MonoBehaviour
 
     void Update()
     {
-        _titreText.transform.Translate(0f, _textTranslationSpeed, 0f);
+        _titreText.transform.Translate(0f, _textTranslationSpeed * Time.deltaTime, 0f);
         if (_titreText.transform.position.y >= _stopPosition.position.y )
         {
             _textTranslationSpeed = 0f;

@@ -57,9 +57,17 @@ public class GameControl : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void ChargeMenuScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     #endregion
 
     #region Private & Protected
+
+    private int _score = 0;
+    public int Score { get { return _score; } private set { } }
 
     #endregion
 }

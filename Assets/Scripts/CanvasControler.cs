@@ -33,11 +33,11 @@ public class CanvasControler : MonoBehaviour
 
             if (_scaleText <=1)
             {
-                _scaleText += _scaleValue;
+                _scaleText += _scaleValue * Time.deltaTime;
             }
 
 
-            _textColor.rectTransform.localScale = new Vector3(_scaleText, _scaleText, _scaleText);
+            _textColor.rectTransform.localScale = new Vector3(_scaleText, _scaleText, _scaleText) ;
         }
 
     }

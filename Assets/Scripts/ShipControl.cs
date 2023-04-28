@@ -196,7 +196,7 @@ public class ShipControl : MonoBehaviour
             //Debug.Log("Position de la camera : " + Vector3.Distance(cameraPos, _cineTransposer.m_FollowOffset));
             if (Vector3.Distance(cameraPos, _cineTransposer.m_FollowOffset) < _distanceTolerance)
             {
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Jump"))
                 {
                     inLife = true;
                 }
