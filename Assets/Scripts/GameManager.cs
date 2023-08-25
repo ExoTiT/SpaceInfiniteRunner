@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
             //_modulaEnergieBars[i].SetActive(false);
             _modulaEnergieBars[i].GetComponent<Image>().enabled = false;
         }
-        //_gameControl = GameObject.Find("GameControl").GetComponent<GameControl>();
+        _gameControl = GameObject.Find("GameControl").GetComponent<GameControl>();
     }
 
     void Start()
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    
+
     }
 
     public void GameOver()

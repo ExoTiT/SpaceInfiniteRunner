@@ -36,7 +36,7 @@ public class GameControl : MonoBehaviour
     IEnumerator StartMenu()
     {
         yield return new WaitForSeconds(6);
-         StartMenuMethod();
+        StartMenuMethod();
     }
 
     void StartMenuMethod()
